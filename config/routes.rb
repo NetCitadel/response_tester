@@ -1,8 +1,6 @@
 ResponseTester::Application.routes.draw do
-  resources :responses, only: [:index, :show]
-
   resources :services do
-    resources :responses, only: [:index, :show, :create]
+    resources :responses, only: [:index, :show, :create, :destroy]
   end
 
   root to: redirect('/services')

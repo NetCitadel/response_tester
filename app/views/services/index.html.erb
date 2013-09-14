@@ -26,7 +26,7 @@
                 <% service.responses.each do |response| %>
                     <tr>
                         <td class="response" colspan="5">
-                            Response <%= response.id %>: <%= response.payload %>
+                            <%= link_to "Response #{response.id}", service_response_path(service, response) %>: <%= response.payload %>
                         </td>
                     </tr>
                 <% end %>

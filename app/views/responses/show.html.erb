@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Payload:</strong>
-  <%= @response.payload %>
+  <h2>Response <%= @response.id %></h2>
+  <span class="service">Service: <%= @service.name %></span>
+  <span>Payload: <%= @response.payload %></span>
 </p>
 
-<%= link_to 'Back', responses_path %>
+<%= link_to 'Destroy', service_response_path(@service, @response), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', services_path %>

@@ -1,6 +1,6 @@
 class ResponsesController < ApplicationController
-  before_action :set_response, only: [:show]
-  before_action :set_service, only: [:create]
+  before_action :set_response, only: [:show, :destroy]
+  before_action :set_service, only: [:show, :create]
 
   # GET /responses
   # GET /responses.json
@@ -8,8 +8,8 @@ class ResponsesController < ApplicationController
     @responses = Response.all
   end
 
-  # GET /responses/1
-  # GET /responses/1.json
+  # GET /services/1/responses/1
+  # GET /services/1/responses/1.json
   def show
   end
 
@@ -24,6 +24,17 @@ class ResponsesController < ApplicationController
       else
         format.json { render json: @response.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # DELETE /services/1/responses/1
+  # DELETE /services/1/responses/1.json
+  def destroy
+    @response.destroy
+
+    respond_to do |format|
+      format.html { redirect_to services_url }
+      format.json { head :no_content }
     end
   end
 
