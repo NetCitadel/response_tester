@@ -1,3 +1,25 @@
 // Place all the styles related to the services controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+td:not(:first-of-type) {
+    text-align: center;
+}
+
+tr.service td:first-of-type {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+td.response {
+    padding-left: 1em;
+}
+
+tr.service:not(:first-of-type) > td {
+    padding-top: 1em;
+}
+
+table + a {
+    display: block;
+    padding-top: 1em;
+}

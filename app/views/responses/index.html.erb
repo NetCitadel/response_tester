@@ -1,0 +1,21 @@
+<h1>Listing responses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Payload</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @responses.each do |response| %>
+      <tr>
+        <td><%= response.payload %></td>
+        <td><%= link_to 'Show', response %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

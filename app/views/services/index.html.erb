@@ -1,27 +1,38 @@
-<h1>Listing services</h1>
+<h1>Simulated External Services</h1>
 
 <table>
-  <thead>
+    <thead>
     <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
+        <th>Name</th>
+        <th>URL</th>
+        <th>Response Count</th>
+        <th></th>
+        <th></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
-    <% @services.each do |service| %>
-      <tr>
-        <td><%= service.name %></td>
-        <td><%= link_to 'Show', service %></td>
-        <td><%= link_to 'Edit', edit_service_path(service) %></td>
-        <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+    <tbody>
+        <% @services.each do |service| %>
+            <tr class="service">
+                <td><%= link_to service.name, service %></td>
+                <td><%= service_url(service) %></td>
+                <td><%= service.responses.size %></td>
+                <td><%= link_to 'Edit', edit_service_path(service) %></td>
+                <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+            <% if service.responses.size == 0 %>
+                <tr><td class="response" colspan="5">No responses.</td></tr>
+            <% else %>
+                <% service.responses.each do |response| %>
+                    <tr>
+                        <td class="response" colspan="5">
+                            Response <%= response.id %>: <%= response.payload %>
+                        </td>
+                    </tr>
+                <% end %>
+            <% end %>
+        <% end %>
+    </tbody>
 </table>
-
-<br>
 
 <%= link_to 'New Service', new_service_path %>
