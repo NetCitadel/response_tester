@@ -16,7 +16,16 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
-    @response = @service.responses.build(response_params)
+    # I really want to just grab the POST body and stuff it in 'payload'.
+    # However, I've tried request.body.read, many params properties and many
+    # other things and nothing seems to get me the raw request.
+    payload_params = params.clone
+    payload_params.delete(:response)
+    payload_params.delete(:service_id)
+    payload_params.delete(:action)
+    payload_params.delete(:controller)
+
+    @response = @service.responses.build({service_id: params[:service_id], payload: payload_params.to_s})
 
     respond_to do |format|
       if @response.save
@@ -46,10 +55,5 @@ class ResponsesController < ApplicationController
 
     def set_service
       @service = Service.find(params[:service_id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def response_params
-      params.require(:response).permit(:payload)
     end
 end
