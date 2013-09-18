@@ -43,3 +43,10 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# Additional local gems (these files are gitignored)
+%w|Gemfile.devel Gemfile.development|.each do |filename|
+  if File.exists?(filename)
+    eval File.read(filename), nil, filename
+  end
+end
