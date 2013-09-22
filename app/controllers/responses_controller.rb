@@ -27,9 +27,9 @@ class ResponsesController < ApplicationController
 
     @response = @service.responses.build({service_id: params[:service_id], payload: payload_params.to_s})
 
-    if (params[:what] == 'pcap') 
+    if params[:what] == 'pcap'
         system("(sleep 20 && curl -X POST -H 'Content-Type: application/json' -u admin:test1234 -d '{\"comment\": \"Packet capture completed, id: 17\"}' http://localhost:3000/incidents/#{ params[:incident_id] }/comments) &")
-    else
+    elsif params[:what] == 'userlookup'
         system("(sleep 20 && curl -X POST -H 'Content-Type: application/json' -u admin:test1234 -d '{\"incident_id\": #{ params[:incident_id] }, \"username\": \"theron\" }' http://localhost:9997/threat/json_event/events/beLBheg39af_Yc7TTd1MlA && curl -X POST -H 'Content-Type: application/json' -u admin:test1234 -d '{\"comment\": \"Updated IP mapping: #{ params[:hosts][0] } is user 'theron'\"}' http://localhost:3000/incidents/#{ params[:incident_id] }/comments) &")
     end
 
