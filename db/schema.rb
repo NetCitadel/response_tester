@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130914073627) do
+ActiveRecord::Schema.define(version: 20131020223650) do
 
   create_table "responses", force: true do |t|
     t.text     "payload"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20130914073627) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "script"
   end
 
 end

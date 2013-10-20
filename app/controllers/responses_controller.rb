@@ -33,6 +33,11 @@ class ResponsesController < ApplicationController
         system("(sleep 20 && curl -X POST -H 'Content-Type: application/json' -u admin:test1234 -d '{\"incident_id\": #{ params[:incident_id] }, \"username\": \"theron\" }' http://localhost:9997/threat/json_event/events/beLBheg39af_Yc7TTd1MlA && curl -X POST -H 'Content-Type: application/json' -u admin:test1234 -d '{\"comment\": \"Updated IP mapping: #{ params[:hosts][0] } is user 'theron'\"}' http://localhost:3000/incidents/#{ params[:incident_id] }/comments) &")
     end
 
+    if @service.script.present?
+      pid = spawn(@service.script + " '#{payload_params.to_json}'", out: "#{@service.script}.out", err: "#{@service.script}.err")
+      Process.detach(pid)
+    end
+
     respond_to do |format|
       if @response.save
         format.json { render action: 'show', status: :created, location: service_response_url(@service, @response) }
